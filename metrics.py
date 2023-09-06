@@ -70,9 +70,14 @@ metrics = {
             {
                 "legendFormat": "Connections",
                 "expr": "sum(emqx_connections_count{instance=~\".*\", cluster=\"$cluster\"})"
-            }
+            },
+            # {
+            #     "legendFormat": "Max Connections",
+            #     "expr": "sum(emqx_license_max_client_limit{cluster=\"$cluster\"})",
+            # },
         ],
         "format": "gauge"
+        # "format": "timeseries",
     },
     "cluster_message_rate": {
         "title": "Cluster Message Rate",
@@ -529,17 +534,17 @@ metrics = {
                         },
                         "type": "value"
                     },
-                    # {
-                    #     "options": {
-                    #         "match": "null",
-                    #         "result": {
-                    #             "color": "red",
-                    #             "index": 2,
-                    #             "text": "N/A"
-                    #         }
-                    #     },
-                    #     "type": "special"
-                    # }
+                    {
+                        "options": {
+                            "match": None,
+                            "result": {
+                                "color": "red",
+                                "index": 2,
+                                "text": "N/A"
+                            }
+                        },
+                        "type": "special"
+                    }
                 ]
             },
             {
@@ -655,7 +660,7 @@ metrics = {
             {
                 "legendFormat": "AuthN Status",
                 "expr": "sum by(resource) (emqx_authentication_resource_status{cluster=\"$cluster\"})",
-                "mapping": [
+                "mappings": [
                     {
                         "options": {
                             "1": {
@@ -671,17 +676,17 @@ metrics = {
                         },
                         "type": "value"
                     },
-                    # {
-                    #     "options": {
-                    #         "match": "null",
-                    #         "result": {
-                    #             "color": "red",
-                    #             "index": 2,
-                    #             "text": "Unknown"
-                    #         }
-                    #     },
-                    #     "type": "special"
-                    # }
+                    {
+                        "options": {
+                            "match": "null",
+                            "result": {
+                                "color": "red",
+                                "index": 2,
+                                "text": "Unknown"
+                            }
+                        },
+                        "type": "special"
+                    }
                 ],
             },
             {
@@ -768,17 +773,17 @@ metrics = {
                         },
                         "type": "value"
                     },
-                    # {
-                    #     "options": {
-                    #         "match": "null",
-                    #         "result": {
-                    #             "color": "red",
-                    #             "index": 2,
-                    #             "text": "Unknown"
-                    #         }
-                    #     },
-                    #     "type": "special"
-                    # }
+                    {
+                        "options": {
+                            "match": None,
+                            "result": {
+                                "color": "red",
+                                "index": 2,
+                                "text": "Unknown"
+                            }
+                        },
+                        "type": "special"
+                    }
                 ]
             },
             {

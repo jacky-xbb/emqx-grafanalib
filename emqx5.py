@@ -174,6 +174,7 @@ def create_target(target, instant, format):
     return G.Target(
         expr=target['expr'],
         legendFormat=target['legendFormat'],
+        intervalFactor=1,
         instant=instant,
         format=format,
         refId='_'.join(target['legendFormat'].lower().split()))
@@ -217,32 +218,23 @@ def create_stat(**kwargs):
                 "options": {
                     "0": {
                         "color": "red",
-                        # "index": 2,
+                        "index": 2,
                         "text": "Unknown"
                     },
                     "1": {
                         "color": "red",
-                        # "index": 1,
+                        "index": 1,
                         "text": "Unhealthy"
                     },
                     "2": {
                         "color": "green",
-                        # "index": 0,
+                        "index": 0,
                         "text": "Healthy"
                     }
                 },
                 "type": "value"
             },
         ],
-        # "thresholds": {
-        #     "mode": "absolute",
-        #     "steps": [
-        #         {
-        #             "color": "green",
-        #         }
-        #     ]
-        # },
-        # "colorMode": "thresholds",
 
         "reduceCalc": "lastNotNull",
         "fields": "/^Status$/",
@@ -262,6 +254,7 @@ def create_gauge(**kwargs):
         "dataSource": "prometheus",
         "gridPos": create_gridpos({"h": 6, "w": 4, "x": 6, "y": 1}),
         "span": 2,
+        "max": None,
         "thresholdType": "percentage",
         "thresholds": thresholds_3_steps,
     }
@@ -471,19 +464,31 @@ if __name__ == '__main__':
         instant=True,
         format=metrics['license']['format'])
 
+    # create_panel(
+    #     dashboard,
+    #     create_timeseries(
+    #         title=metrics['active_connections']['title'],
+    #         gradientMode="none",
+    #         fillOpacity=15,
+    #         thresholdsStyleMode="area",
+    #         span=3,
+    #         thresholdType="percentage",
+    #         thresholds=thresholds_3_steps),
+    #     metrics['active_connections']['targets'])
+
     create_panel(
         dashboard,
         create_gauge(title=metrics['active_connections']['title']),
         metrics['active_connections']['targets'],
         format=metrics['active_connections']['format'])
 
-    create_panel(
-        dashboard,
-        create_timeseries(
-            title=metrics['cluster_message_rate']['title'],
-            thresholds=thresholds_2_steps,
-            gridPos=create_gridpos(metrics['cluster_message_rate']['gridPos'])),
-        metrics['cluster_message_rate']['targets'])
+    # create_panel(
+    #     dashboard,
+    #     create_timeseries(
+    #         title=metrics['cluster_message_rate']['title'],
+    #         thresholds=thresholds_2_steps,
+    #         gridPos=create_gridpos(metrics['cluster_message_rate']['gridPos'])),
+    #     metrics['cluster_message_rate']['targets'])
 
     create_panel(
         dashboard,
