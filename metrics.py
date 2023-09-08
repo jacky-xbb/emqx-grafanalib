@@ -137,6 +137,24 @@ metrics = {
             "y": 1
         },
     },
+    "sessions": {
+        "title": "Sessions",
+        "targets": [
+            {
+                "legendFormat": "Max",
+                "expr": "sum(emqx_license_max_client_limit{cluster=\"$cluster\"})"
+            },
+            {
+                "legendFormat": "Count",
+                "expr": "sum(emqx_sessions_count{instance=~\".*\", cluster=\"$cluster\"})"
+            },
+            {
+                "legendFormat": "{{ instance }}",
+                "expr": "sum by(instance) (emqx_sessions_count{cluster=\"$cluster\"})"
+            },
+        ],
+        "format": "timeseries"
+    },
     "connections": {
         "title": "Connections",
         "targets": [
@@ -157,20 +175,10 @@ metrics = {
             {
                 "legendFormat": "Subscriptions",
                 "expr": "sum(emqx_suboptions_count{instance=~\".*\", cluster=\"$cluster\"})"
-            }
-        ],
-        "format": "timeseries"
-    },
-    "sessions": {
-        "title": "Sessions",
-        "targets": [
-            {
-                "legendFormat": "Count",
-                "expr": "sum(emqx_sessions_count{instance=~\".*\", cluster=\"$cluster\"})"
             },
             {
-                "legendFormat": "Max",
-                "expr": "sum(emqx_license_max_client_limit{cluster=\"$cluster\"})"
+                "legendFormat": "{{ instance }}",
+                "expr": "sum by(instance) (emqx_suboptions_count{cluster=\"$cluster\"})"
             }
         ],
         "format": "timeseries"
@@ -583,7 +591,7 @@ metrics = {
                 "expr": "sum by(rule) (emqx_rule_exec_pass_count{cluster=\"$cluster\", node=~\".*\"})",
             },
             {
-                "legendFormat": "Exec Failure last 15m",
+                "legendFormat": "Exec Failed last 15m",
                 "expr": "sum by(rule) (irate(emqx_rule_exec_failure_count{cluster=\"$cluster\", node=~\".*\"}[15m]))",
                 "thresholds": {
                     "mode": "absolute",
@@ -617,7 +625,7 @@ metrics = {
                 },
             },
             {
-                "legendFormat": "Action Total",
+                "legendFormat": "Call Action Total",
                 "expr": "sum by(rule) (emqx_rule_action_total{cluster=\"$cluster\", node=~\".*\"})",
             },
             {
@@ -658,7 +666,8 @@ metrics = {
         "title": "Authenticate Count",
         "targets": [
             {
-                "legendFormat": "AuthN Status",
+                # "legendFormat": "AuthN Status",
+                "legendFormat": "Status",
                 "expr": "sum by(resource) (emqx_authentication_resource_status{cluster=\"$cluster\"})",
                 "mappings": [
                     {
@@ -690,19 +699,23 @@ metrics = {
                 ],
             },
             {
-                "legendFormat": "AuthN Max Rate",
+                # "legendFormat": "AuthN Max Rate",
+                "legendFormat": "Max Rate",
                 "expr": "max by(resource) (emqx_authentication_exec_max_rate{cluster=\"$cluster\", node=~\".*\"})",
             },
             {
-                "legendFormat": "AuthN Total",
+                # "legendFormat": "AuthN Total",
+                "legendFormat": "Total",
                 "expr": "sum by(resource) (emqx_authentication_total{cluster=\"$cluster\", node=~\".*\"})",
             },
             {
-                "legendFormat": "AuthN Allow",
+                # "legendFormat": "AuthN Allow",
+                "legendFormat": "Allow",
                 "expr": "sum by(resource) (emqx_authentication_allow_count{cluster=\"$cluster\", node=~\".*\"})",
             },
             {
-                "legendFormat": "AuthN Deny last 15m",
+                # "legendFormat": "AuthN Deny last 15m",
+                "legendFormat": "Deny last 15m",
                 "expr": "sum by(resource) (irate(emqx_authentication_deny_count{cluster=\"$cluster\", node=~\".*\"}[15m]))",
                 "thresholds": {
                     "mode": "absolute",
@@ -755,7 +768,8 @@ metrics = {
         "title": "Authorize Count",
         "targets": [
             {
-                "legendFormat": "AuthZ Status",
+                # "legendFormat": "AuthZ Status",
+                "legendFormat": "Status",
                 "expr": "sum by(resource) (emqx_authorization_resource_status{cluster=\"$cluster\"})",
                 "mappings": [
                     {
@@ -787,19 +801,23 @@ metrics = {
                 ]
             },
             {
-                "legendFormat": "AuthZ Max Rate",
+                # "legendFormat": "AuthZ Max Rate",
+                "legendFormat": "Max Rate",
                 "expr": "max by(resource) (emqx_authorization_exec_max_rate{cluster=\"$cluster\", node=~\".*\"})",
             },
             {
-                "legendFormat": "AuthZ Total",
+                # "legendFormat": "AuthZ Total",
+                "legendFormat": "Total",
                 "expr": "sum by(resource) (emqx_authorization_total{cluster=\"$cluster\", node=~\".*\"})",
             },
             {
-                "legendFormat": "AuthZ Allow",
+                # "legendFormat": "AuthZ Allow",
+                "legendFormat": "Allow",
                 "expr": "sum by(resource) (emqx_authorization_allow_count{cluster=\"$cluster\", node=~\".*\"})",
             },
             {
-                "legendFormat": "AuthZ Deny last 15m",
+                # "legendFormat": "AuthZ Deny last 15m",
+                "legendFormat": "Deny last 15m",
                 "expr": "sum by(resource) (irate(emqx_authorization_deny_count{cluster=\"$cluster\", node=~\".*\"}[15m]))",
                 "thresholds": {
                     "mode": "absolute",

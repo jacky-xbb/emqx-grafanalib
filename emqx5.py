@@ -464,31 +464,19 @@ if __name__ == '__main__':
         instant=True,
         format=metrics['license']['format'])
 
-    # create_panel(
-    #     dashboard,
-    #     create_timeseries(
-    #         title=metrics['active_connections']['title'],
-    #         gradientMode="none",
-    #         fillOpacity=15,
-    #         thresholdsStyleMode="area",
-    #         span=3,
-    #         thresholdType="percentage",
-    #         thresholds=thresholds_3_steps),
-    #     metrics['active_connections']['targets'])
-
     create_panel(
         dashboard,
         create_gauge(title=metrics['active_connections']['title']),
         metrics['active_connections']['targets'],
         format=metrics['active_connections']['format'])
 
-    # create_panel(
-    #     dashboard,
-    #     create_timeseries(
-    #         title=metrics['cluster_message_rate']['title'],
-    #         thresholds=thresholds_2_steps,
-    #         gridPos=create_gridpos(metrics['cluster_message_rate']['gridPos'])),
-    #     metrics['cluster_message_rate']['targets'])
+    create_panel(
+        dashboard,
+        create_timeseries(
+            title=metrics['cluster_message_rate']['title'],
+            thresholds=thresholds_2_steps,
+            gridPos=create_gridpos(metrics['cluster_message_rate']['gridPos'])),
+        metrics['cluster_message_rate']['targets'])
 
     create_panel(
         dashboard,
@@ -514,6 +502,18 @@ if __name__ == '__main__':
     create_panel(
         dashboard,
         create_timeseries(
+            title=metrics['sessions']['title'],
+            gradientMode="none",
+            fillOpacity=15,
+            thresholdsStyleMode="area",
+            span=3,
+            thresholdType="percentage",
+            thresholds=thresholds_3_steps),
+        metrics['sessions']['targets'])
+
+    create_panel(
+        dashboard,
+        create_timeseries(
             title=metrics['connections']['title'],
             span=3),
         metrics['connections']['targets'])
@@ -524,18 +524,6 @@ if __name__ == '__main__':
             title=metrics['subscriptions']['title'],
             span=3),
         metrics['subscriptions']['targets'])
-
-    create_panel(
-        dashboard,
-        create_timeseries(
-            title=metrics['sessions']['title'],
-            gradientMode="none",
-            fillOpacity=15,
-            thresholdsStyleMode="area",
-            span=3,
-            thresholdType="percentage",
-            thresholds=thresholds_3_steps),
-        metrics['sessions']['targets'])
 
     create_panel(
         dashboard,
